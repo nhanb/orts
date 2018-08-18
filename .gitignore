@@ -1,0 +1,11 @@
+# Poetry build artifacts
+/dist/
+
+# Standard issue Python stuff
+*.pyc
+__pycache__/
+.pytest_cache/
+*.egg-info/
+
+# KDE Dolphin
+.directory

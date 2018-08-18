@@ -1,0 +1,17 @@
+sudo: false
+language: python
+python: 3.6
+
+cache:
+  pip: true
+  directories:
+    - $HOME/.cache/pypoetry
+
+install:
+  - pip install poetry
+  - pip install black
+  - poetry install -v
+
+script:
+  - python -m pytest
+  - black --check .

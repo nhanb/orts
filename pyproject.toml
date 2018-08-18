@@ -1,0 +1,16 @@
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+name = "orts"
+version = "0.1.0"
+description = "Simple HTML-based stream overlay"
+authors = ["Nhan <nhan@nerdyweekly.com>"]
+
+[tool.poetry.dependencies]
+python = "3.6"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.0"
+flake8 = "^3.5"

@@ -1,0 +1,6 @@
+set textwidth=88
+
+augroup autoformat
+    au!
+    autocmd BufWritePre *.py execute ':Black'
+augroup End
