@@ -1,3 +1,10 @@
+const fadeUpdate = (element, newValue) => {
+  element.classList.add('fade');
+  element.innerHTML = newValue;
+  // Assuming whole animation duration == 1s
+  setTimeout(() => {element.classList.remove('fade');}, 1000);
+};
+
 const drawState = (state) => {
   // Ideally I'd want to keep a global `state` object to compare against the new one and
   // only query & update DOM elements on changed fields. But hey I haven't seen dropped
@@ -9,8 +16,7 @@ const drawState = (state) => {
     const newValue = state[key];
 
     if (newValue !== element.innerHTML) {
-      // TODO ANIMATE HERE
-      element.innerHTML = newValue;
+      fadeUpdate(element, newValue);
     }
 
   });
