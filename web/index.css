@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Oswald";
+  src: url("./assets/fonts/Oswald-DemiBold.ttf") format("opentype");
+}
+
 body {
     width: 1920px;
     height: 1080px;

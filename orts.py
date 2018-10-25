@@ -1,4 +1,3 @@
-import traceback
 import os
 import json
 from functools import partial
@@ -9,6 +8,7 @@ STATE_FILE_PATH = "./web/state.json"
 
 
 def build_ui(root, state, apply_state, reset_scores, swap_players):
+    root.title("Overly Repetitive Tedious Software")
     # Main frames:
     misc = ttk.Frame(root, padding=(3, 3, 12, 12))
     players = ttk.Frame(root, padding=(3, 3, 12, 12))
