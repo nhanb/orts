@@ -11,13 +11,38 @@ body {
 }
 
 #scoreboard {
-    display: block;
+    text-align: center;
+    position: relative;
+}
+
+#p1score, #p2score, #p1name, #p2name {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
+    bottom: 0;
+    color: white;
+    font-family: "Oswald", sans-serif;
+    font-size: 30px;
+}
+
+#p1score, #p2score {
+    top: 2px;
+    color: black;
+}
+
+#p1score {
+    left: 285px;
+}
+
+#p2score {
+    right: 285px;
+}
+
+#p1name {
+    left: 340px;
+}
+
+#p2name {
+    right: 340px;
 }
 
 #logo {
