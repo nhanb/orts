@@ -1,11 +1,14 @@
+import traceback
+import os
 import json
 from functools import partial
 from tkinter import Tk, N, S, E, W, Spinbox, StringVar
 from tkinter import ttk
 
+STATE_FILE_PATH = "./web/state.json"
+
 
 def build_ui(root, state, apply_state, reset_scores, swap_players):
-
     # Main frames:
     misc = ttk.Frame(root, padding=(3, 3, 12, 12))
     players = ttk.Frame(root, padding=(3, 3, 12, 12))
@@ -46,8 +49,33 @@ def build_ui(root, state, apply_state, reset_scores, swap_players):
     root.mainloop()
 
 
+def init_state():
+    state = {
+        "description": StringVar(),
+        "p1name": StringVar(),
+        "p1score": StringVar(),
+        "p2name": StringVar(),
+        "p2score": StringVar(),
+    }
+
+    # Attempt to read existing state from file if available
+    if os.path.isfile(STATE_FILE_PATH):
+        try:
+            with open(STATE_FILE_PATH, "r") as state_file:
+                state_json = json.load(state_file)
+
+            for field, value in state_json.items():
+                if field in state:
+                    state[field].set(value)
+        except json.decoder.JSONDecodeError:
+            print(f"WARNING: {STATE_FILE_PATH} doesn't contain valid json.")
+            print("Starting with empty state. The file will be overwritten on Apply.")
+
+    return state
+
+
 def apply_state(state):
-    with open("./web/state.json", "w") as state_file:
+    with open(STATE_FILE_PATH, "w") as state_file:
         state_json = {field: var.get() for field, var in state.items()}
         content = json.dumps(state_json, indent=2)
         state_file.write(content)
@@ -70,15 +98,7 @@ def swap_players(state):
 if __name__ == "__main__":
     # Need to init Tk before creating any StringVar instance
     root = Tk()
-
-    state = {
-        "description": StringVar(),
-        "p1name": StringVar(),
-        "p1score": StringVar(),
-        "p2name": StringVar(),
-        "p2score": StringVar(),
-    }
-
+    state = init_state()
     build_ui(
         root,
         state,
