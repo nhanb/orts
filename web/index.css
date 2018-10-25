@@ -20,7 +20,7 @@ body {
     position: relative;
 }
 
-#p1score, #p2score, #p1name, #p2name, #description {
+#p1score, #p2score, #p1name, #p2name, #p1country, #p2country, #description {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -37,6 +37,20 @@ body {
     font-size: 23px;
 }
 
+#p1country, #p2country {
+    height: 27px;
+    width: 36px;
+    top: 7px;
+}
+
+#p1country {
+  left: 340px;
+}
+
+#p2country {
+  right: 340px;
+}
+
 #p1score, #p2score {
     top: 2px;
     color: black;
@@ -51,11 +65,11 @@ body {
 }
 
 #p1name {
-    left: 340px;
+    left: 390px;
 }
 
 #p2name {
-    right: 340px;
+    right: 390px;
 }
 
 #logo {

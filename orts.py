@@ -5,10 +5,12 @@ from tkinter import Tk, N, S, E, W, Spinbox, StringVar
 from tkinter import ttk
 
 STATE_FILE_PATH = "./web/state.json"
+COUNTRIES_FILE_PATH = "./data/countries.txt"
 
 
-def build_ui(root, state, apply_state, reset_scores, swap_players):
+def build_ui(root, state, countries, apply_state, reset_scores, swap_players):
     root.title("Overly Repetitive Tedious Software")
+
     # Main frames:
     misc = ttk.Frame(root, padding=(3, 3, 12, 12))
     players = ttk.Frame(root, padding=(3, 3, 12, 12))
@@ -27,16 +29,24 @@ def build_ui(root, state, apply_state, reset_scores, swap_players):
     # Players:
     name1lbl = ttk.Label(players, text="Player 1")
     name2lbl = ttk.Label(players, text="Player 2")
-    name1 = ttk.Entry(players, textvariable=state["p1name"])
-    name2 = ttk.Entry(players, textvariable=state["p2name"])
-    score1 = Spinbox(players, from_=0, to=7777, textvariable=state["p1score"])
-    score2 = Spinbox(players, from_=0, to=7777, textvariable=state["p2score"])
+    name1 = ttk.Entry(players, width="30", textvariable=state["p1name"])
+    name2 = ttk.Entry(players, width="30", textvariable=state["p2name"])
+    country1 = ttk.Combobox(
+        players, width="6", values=countries, textvariable=state["p1country"]
+    )
+    country2 = ttk.Combobox(
+        players, width="6", values=countries, textvariable=state["p2country"]
+    )
+    score1 = Spinbox(players, from_=0, to=777, width="4", textvariable=state["p1score"])
+    score2 = Spinbox(players, from_=0, to=777, width="4", textvariable=state["p2score"])
     name1lbl.grid(column=0, row=0)
     name1.grid(column=1, row=0)
-    score1.grid(column=2, row=0)
+    country1.grid(column=2, row=0)
+    score1.grid(column=3, row=0)
     name2lbl.grid(column=0, row=1)
     name2.grid(column=1, row=1)
-    score2.grid(column=2, row=1)
+    country2.grid(column=2, row=1)
+    score2.grid(column=3, row=1)
 
     # Actions:
     apply = ttk.Button(actions, text="Apply", command=apply_state)
@@ -49,12 +59,20 @@ def build_ui(root, state, apply_state, reset_scores, swap_players):
     root.mainloop()
 
 
+def load_countries():
+    with open(COUNTRIES_FILE_PATH, "r") as countries_file:
+        countries = countries_file.read().split()
+    return countries
+
+
 def init_state():
     state = {
         "description": StringVar(),
         "p1name": StringVar(),
+        "p1country": StringVar(),
         "p1score": StringVar(),
         "p2name": StringVar(),
+        "p2country": StringVar(),
         "p2score": StringVar(),
     }
 
@@ -89,19 +107,24 @@ def reset_scores(state):
 def swap_players(state):
     score1, score2 = state["p1score"].get(), state["p2score"].get()
     name1, name2 = state["p1name"].get(), state["p2name"].get()
+    country1, country2 = state["p1country"].get(), state["p2country"].get()
     state["p1score"].set(score2)
     state["p2score"].set(score1)
     state["p1name"].set(name2)
     state["p2name"].set(name1)
+    state["p1country"].set(country2)
+    state["p2country"].set(country1)
 
 
 if __name__ == "__main__":
     # Need to init Tk before creating any StringVar instance
     root = Tk()
     state = init_state()
+    countries = load_countries()
     build_ui(
         root,
         state,
+        countries=countries,
         apply_state=partial(apply_state, state),
         reset_scores=partial(reset_scores, state),
         swap_players=partial(swap_players, state),

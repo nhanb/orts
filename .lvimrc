@@ -1,4 +1,4 @@
 augroup LOCAL_SETUP
     set textwidth=88
-    autocmd BufWritePre *.py execute ':Black'
+    autocmd BufWritePre *.py silent execute ':Black'
 augroup End
