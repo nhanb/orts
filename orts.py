@@ -1,4 +1,5 @@
 import json
+from functools import partial
 from tkinter import Tk, N, S, E, W, Spinbox, StringVar
 from tkinter import ttk
 
@@ -34,7 +35,15 @@ def build_ui(root, state, apply_state):
     root.mainloop()
 
 
+def apply_state(state):
+    with open("./html/state.json", "w") as state_file:
+        state_json = {field: var.get() for field, var in state.items()}
+        content = json.dumps(state_json, indent=2)
+        state_file.write(content)
+
+
 if __name__ == "__main__":
+    # Need to init Tk before creating any StringVar instance
     root = Tk()
 
     state = {
@@ -44,10 +53,4 @@ if __name__ == "__main__":
         "p2score": StringVar(),
     }
 
-    def apply_state():
-        with open("./html/state.json", "w") as state_file:
-            state_json = {field: var.get() for field, var in state.items()}
-            content = json.dumps(state_json, indent=2)
-            state_file.write(content)
-
-    build_ui(root, state, apply_state)
+    build_ui(root, state, partial(apply_state, state))
