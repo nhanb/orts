@@ -6,19 +6,28 @@ from tkinter import ttk
 
 def build_ui(root, state, apply_state, reset_scores, swap_players):
 
-    # 2 main frames:
-    content = ttk.Frame(root, padding=(3, 3, 12, 12))
+    # Main frames:
+    misc = ttk.Frame(root, padding=(3, 3, 12, 12))
+    players = ttk.Frame(root, padding=(3, 3, 12, 12))
     actions = ttk.Frame(root, padding=(3, 3, 12, 12))
-    content.grid(column=0, row=0, sticky=(N, S, E, W))
-    actions.grid(column=0, row=1, sticky=(N, S, E, W))
+    misc.grid(column=0, row=0, sticky=(N, S, E, W))
+    players.grid(column=0, row=1, sticky=(N, S, E, W))
+    actions.grid(column=0, row=2, sticky=(N, S, E, W))
 
-    # Content:
-    name1lbl = ttk.Label(content, text="Player 1")
-    name2lbl = ttk.Label(content, text="Player 2")
-    name1 = ttk.Entry(content, textvariable=state["p1name"])
-    name2 = ttk.Entry(content, textvariable=state["p2name"])
-    score1 = Spinbox(content, from_=0, to=7777, textvariable=state["p1score"])
-    score2 = Spinbox(content, from_=0, to=7777, textvariable=state["p2score"])
+    # Misc: (fields not belonging to any player)
+    descriptionlbl = ttk.Label(misc, text="Match description")
+    description = ttk.Entry(misc, textvariable=state["description"])
+    descriptionlbl.grid(column=0, row=0)
+    description.grid(column=1, row=0, sticky=(E, W))
+    misc.grid_columnconfigure(1, weight=1)
+
+    # Players:
+    name1lbl = ttk.Label(players, text="Player 1")
+    name2lbl = ttk.Label(players, text="Player 2")
+    name1 = ttk.Entry(players, textvariable=state["p1name"])
+    name2 = ttk.Entry(players, textvariable=state["p2name"])
+    score1 = Spinbox(players, from_=0, to=7777, textvariable=state["p1score"])
+    score2 = Spinbox(players, from_=0, to=7777, textvariable=state["p2score"])
     name1lbl.grid(column=0, row=0)
     name1.grid(column=1, row=0)
     score1.grid(column=2, row=0)
@@ -28,8 +37,8 @@ def build_ui(root, state, apply_state, reset_scores, swap_players):
 
     # Actions:
     apply = ttk.Button(actions, text="Apply", command=apply_state)
-    reset = ttk.Button(actions, text="Reset", command=reset_scores)
-    swap = ttk.Button(actions, text="Swap", command=swap_players)
+    reset = ttk.Button(actions, text="Reset scores", command=reset_scores)
+    swap = ttk.Button(actions, text="Swap players", command=swap_players)
     apply.grid(column=0, row=0, padx=5)
     reset.grid(column=1, row=0, padx=5)
     swap.grid(column=2, row=0, padx=5)
@@ -63,6 +72,7 @@ if __name__ == "__main__":
     root = Tk()
 
     state = {
+        "description": StringVar(),
         "p1name": StringVar(),
         "p1score": StringVar(),
         "p2name": StringVar(),
