@@ -1,4 +1,4 @@
-/html/state.json
+/web/state.json
 
 # Poetry build artifacts
 /dist/
