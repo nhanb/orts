@@ -4,7 +4,7 @@ from tkinter import Tk, N, S, E, W, Spinbox, StringVar
 from tkinter import ttk
 
 
-def build_ui(root, state, apply_state):
+def build_ui(root, state, apply_state, reset_scores, swap_scores):
 
     # 2 main frames:
     content = ttk.Frame(root, padding=(3, 3, 12, 12))
@@ -28,9 +28,11 @@ def build_ui(root, state, apply_state):
 
     # Actions:
     apply = ttk.Button(actions, text="Apply", command=apply_state)
-    reset = ttk.Button(actions, text="Reset")
+    reset = ttk.Button(actions, text="Reset", command=reset_scores)
+    swap = ttk.Button(actions, text="Swap", command=swap_scores)
     apply.grid(column=0, row=0, padx=5)
     reset.grid(column=1, row=0, padx=5)
+    swap.grid(column=2, row=0, padx=5)
 
     root.mainloop()
 
@@ -40,6 +42,17 @@ def apply_state(state):
         state_json = {field: var.get() for field, var in state.items()}
         content = json.dumps(state_json, indent=2)
         state_file.write(content)
+
+
+def reset_scores(state):
+    state["p1score"].set("0")
+    state["p2score"].set("0")
+
+
+def swap_scores(state):
+    score1, score2 = state["p1score"].get(), state["p2score"].get()
+    state["p1score"].set(score2)
+    state["p2score"].set(score1)
 
 
 if __name__ == "__main__":
@@ -53,4 +66,10 @@ if __name__ == "__main__":
         "p2score": StringVar(),
     }
 
-    build_ui(root, state, partial(apply_state, state))
+    build_ui(
+        root,
+        state,
+        apply_state=partial(apply_state, state),
+        reset_scores=partial(reset_scores, state),
+        swap_scores=partial(swap_scores, state),
+    )
