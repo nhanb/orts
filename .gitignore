@@ -1,7 +1,11 @@
 /web/state.json
 
 # Poetry build artifacts
+/build/
+
+# PyInstaller build artifacts
 /dist/
+/orts.spec
 
 # Standard issue Python stuff
 *.pyc
