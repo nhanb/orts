@@ -1,0 +1,27 @@
+environment:
+
+  matrix:
+    - PYTHON: 'C:\Python36-x64'
+
+install:
+  - '%PYTHON%\python.exe -m pip install --upgrade pip'
+  - '%PYTHON%\python.exe -m pip install pyinstaller'
+
+build: off
+
+#test_script:
+  #- 'ECHO 1'
+
+after_test:
+  - '%PYTHON%\Scripts\pyinstaller --onefile orts.py'
+  - 'Xcopy /S /I /E data dist\data'
+  - 'Xcopy /S /I /E web dist\web'
+  - ps: Compress-Archive -Path dist -DestinationPath ORTS-Win.zip
+
+artifacts:
+  - path: ORTS-Win.zip
+
+#on_success:
+#  You can use this step to upload your artifacts to a public website.
+#  See Appveyor's documentation for more details. Or you can simply
+#  access your artifacts from the Appveyor "artifacts" tab for your build.
