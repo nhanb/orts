@@ -336,8 +336,8 @@ python-versions = "*"
 version = "0.1.7"
 
 [metadata]
-content-hash = "89fa6d3476516a0829012fb2ff3b9e0e29cb358e3828c5f68d2787caaa69bc27"
-python-versions = "~3.6"
+content-hash = "285ac97667891ca47a2f6367ab764594ff7fe3930b9f0ea96c5f7203e03487ed"
+python-versions = "~3.7"
 
 [metadata.hashes]
 altgraph = ["d6814989f242b2b43025cba7161fc1b8fb487a62cd49c49245d6fd01c18ac997", "ddf5320017147ba7b810198e0b6619bd7b5563aa034da388cea8546b877f9b0c"]
