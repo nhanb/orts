@@ -102,7 +102,7 @@ marker = "python_version >= \"3.3\""
 name = "ipython"
 optional = false
 python-versions = ">=3.5"
-version = "7.0.1"
+version = "7.1.1"
 
 [package.dependencies]
 appnope = "*"
@@ -115,7 +115,6 @@ pickleshare = "*"
 prompt-toolkit = ">=2.0.0,<2.1.0"
 pygments = "*"
 setuptools = ">=18.5"
-simplegeneric = ">0.8"
 traitlets = ">=4.2"
 
 [[package]]
@@ -293,7 +292,7 @@ description = "pytest: simple powerful testing with Python"
 name = "pytest"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "3.9.2"
+version = "3.9.3"
 
 [package.dependencies]
 atomicwrites = ">=1.0"
@@ -304,15 +303,6 @@ pluggy = ">=0.7"
 py = ">=1.5.0"
 setuptools = "*"
 six = ">=1.10.0"
-
-[[package]]
-category = "dev"
-description = "Simple generic functions (similar to Python's own len(), pickle.dump(), etc.)"
-marker = "python_version >= \"3.3\""
-name = "simplegeneric"
-optional = false
-python-versions = "*"
-version = "0.8.1"
 
 [[package]]
 category = "dev"
@@ -346,8 +336,8 @@ python-versions = "*"
 version = "0.1.7"
 
 [metadata]
-content-hash = "49a2b56e2d4011a093b4769e9b6755df8c60d9f37ba3fc0bec9106aa05c51f87"
-python-versions = "3.6"
+content-hash = "89fa6d3476516a0829012fb2ff3b9e0e29cb358e3828c5f68d2787caaa69bc27"
+python-versions = "~3.6"
 
 [metadata.hashes]
 altgraph = ["d6814989f242b2b43025cba7161fc1b8fb487a62cd49c49245d6fd01c18ac997", "ddf5320017147ba7b810198e0b6619bd7b5563aa034da388cea8546b877f9b0c"]
@@ -360,7 +350,7 @@ decorator = ["2c51dff8ef3c447388fe5e4453d24a2bf128d3a4c32af3fabef1f01c6851ab82",
 flake8 = ["6a35f5b8761f45c5513e3405f110a86bea57982c3b75b766ce7b65217abe1670", "c01f8a3963b3571a8e6bd7a4063359aff90749e160778e03817cd9b71c9e07d2"]
 future = ["eb6d4df04f1fb538c99f69c9a28b255d1ee4e825d479b9c62fc38c0cf38065a4"]
 ipdb = ["7081c65ed7bfe7737f83fa4213ca8afd9617b42ff6b3f1daf9a3419839a2a00a"]
-ipython = ["47b17ea874454a5c2eacc2732b04a750d260b01ba479323155ac8a39031f5535", "9fed506c3772c875a3048bc134a25e6f5e997b1569b2636f6a5d891f34cbfd46"]
+ipython = ["a5781d6934a3341a1f9acb4ea5acdc7ea0a0855e689dbe755d070ca51e995435", "b10a7ddd03657c761fc503495bc36471c8158e3fc948573fb9fe82a7029d8efd"]
 ipython-genutils = ["72dd37233799e619666c9f639a9da83c34013a73e8bbc79a7a6348d93c61fab8", "eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8"]
 jedi = ["0191c447165f798e6a730285f2eee783fff81b0d3df261945ecb80983b5c3ca7", "b7493f73a2febe0dc33d51c99b474547f7f6c0b2c8fb2b21f453eef204c12148"]
 macholib = ["ac02d29898cf66f27510d8f39e9112ae00590adb4a48ec57b25028d6962b1ae1", "c4180ffc6f909bf8db6cd81cff4b6f601d575568f4d5dee148c830e9851eb9db"]
@@ -378,8 +368,7 @@ pycodestyle = ["74abc4e221d393ea5ce1f129ea6903209940c1ecd29e002e8c6933c2b21026e0
 pyflakes = ["9a7662ec724d0120012f6e29d6248ae3727d821bba522a0e6b356eff19126a49", "f661252913bc1dbe7fcfcbf0af0db3f42ab65aabd1a6ca68fe5d466bace94dae"]
 pygments = ["78f3f434bcc5d6ee09020f92ba487f95ba50f1e3ef83ae96b9d5ffa1bab25c5d", "dbae1046def0efb574852fab9e90209b23f556367b5a320c0bcb871c77c3e8cc"]
 pyinstaller = ["a5a6e04a66abfcf8761e89a2ebad937919c6be33a7b8963e1a961b55cb35986b"]
-pytest = ["212be78a6fa5352c392738a49b18f74ae9aeec1040f47c81cadbfd8d1233c310", "6f6c1efc8d0ccc21f8f6c34d8330baca883cf109b66b3df954b0a117e5528fb4"]
-simplegeneric = ["dc972e06094b9af5b855b3df4a646395e43d1c9d0d39ed345b7393560d0b9173"]
+pytest = ["a9e5e8d7ab9d5b0747f37740276eb362e6a76275d76cebbb52c6049d93b475db", "bf47e8ed20d03764f963f0070ff1c8fda6e2671fc5dd562a4d3b7148ad60f5ca"]
 six = ["70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9", "832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"]
 traitlets = ["9c4bd2d267b7153df9152698efb1050a5d84982d3384a37b2c1f7723ba3e7835", "c6cb5e6f57c5a9bdaa40fa71ce7b4af30298fbab9ece9815b5d995ab6217c7d9"]
 wcwidth = ["3df37372226d6e63e1b1e1eda15c594bca98a22d33a23832a90998faa96bc65e", "f4ebe71925af7b40a864553f761ed559b43544f8f71746c2d756c7fe788ade7c"]
