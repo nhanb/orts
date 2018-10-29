@@ -8,13 +8,15 @@ STATE_FILE_PATH = "./web/state.json"
 COUNTRIES_FILE_PATH = "./data/countries.txt"
 
 
-def build_ui(root, state, countries, apply_state, reset_scores, swap_players):
+def build_ui(
+    root, state, countries, p1_wins, p2_wins, apply_state, reset_scores, swap_players
+):
     root.title("Overly Repetitive Tedious Software")
 
     # Main frames:
-    misc = ttk.Frame(root, padding=(3, 3, 12, 12))
-    players = ttk.Frame(root, padding=(3, 3, 12, 12))
-    actions = ttk.Frame(root, padding=(3, 3, 12, 12))
+    misc = ttk.Frame(root, padding=(3, 3, 5, 8))
+    players = ttk.Frame(root, padding=(3, 3, 5, 8))
+    actions = ttk.Frame(root, padding=(3, 3, 5, 3))
     misc.grid(column=0, row=0, sticky=(N, S, E, W))
     players.grid(column=0, row=1, sticky=(N, S, E, W))
     actions.grid(column=0, row=2, sticky=(N, S, E, W))
@@ -22,7 +24,7 @@ def build_ui(root, state, countries, apply_state, reset_scores, swap_players):
     # Misc: (fields not belonging to any player)
     descriptionlbl = ttk.Label(misc, text="Match description")
     description = ttk.Entry(misc, textvariable=state["description"])
-    descriptionlbl.grid(column=0, row=0)
+    descriptionlbl.grid(column=0, row=0, padx=(0, 4))
     description.grid(column=1, row=0, sticky=(E, W))
     misc.grid_columnconfigure(1, weight=1)
 
@@ -39,14 +41,20 @@ def build_ui(root, state, countries, apply_state, reset_scores, swap_players):
     )
     score1 = Spinbox(players, from_=0, to=777, width="4", textvariable=state["p1score"])
     score2 = Spinbox(players, from_=0, to=777, width="4", textvariable=state["p2score"])
-    name1lbl.grid(column=0, row=0)
-    name1.grid(column=1, row=0)
-    country1.grid(column=2, row=0)
-    score1.grid(column=3, row=0)
-    name2lbl.grid(column=0, row=1)
-    name2.grid(column=1, row=1)
-    country2.grid(column=2, row=1)
-    score2.grid(column=3, row=1)
+    win1 = ttk.Button(players, text="Win", width="5", command=p1_wins)
+    win2 = ttk.Button(players, text="Win", width="5", command=p2_wins)
+
+    name1lbl.grid(column=0, row=0, padx=(0, 2))
+    name1.grid(column=1, row=0, padx=2)
+    country1.grid(column=2, row=0, padx=2)
+    score1.grid(column=3, row=0, padx=2)
+    win1.grid(column=4, row=0, padx=(2, 0), pady=3)
+
+    name2lbl.grid(column=0, row=1, padx=(0, 2))
+    name2.grid(column=1, row=1, padx=2)
+    country2.grid(column=2, row=1, padx=2)
+    score2.grid(column=3, row=1, padx=2)
+    win2.grid(column=4, row=1, padx=(2, 0), pady=3)
 
     # Actions:
     apply = ttk.Button(actions, text="Apply", command=apply_state)
@@ -92,6 +100,12 @@ def init_state():
     return state
 
 
+def player_wins(state, player):
+    score_field = f"p{player}score"
+    score = int(state[score_field].get())
+    state[score_field].set(score + 1)
+
+
 def apply_state(state):
     with open(STATE_FILE_PATH, "w") as state_file:
         state_json = {field: var.get() for field, var in state.items()}
@@ -125,6 +139,8 @@ if __name__ == "__main__":
         root,
         state,
         countries=countries,
+        p1_wins=partial(player_wins, state, 1),
+        p2_wins=partial(player_wins, state, 2),
         apply_state=partial(apply_state, state),
         reset_scores=partial(reset_scores, state),
         swap_players=partial(swap_players, state),
