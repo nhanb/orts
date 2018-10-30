@@ -7,8 +7,10 @@ body {
     width: 1920px;
     height: 1080px;
     box-sizing: border-box;
+    /* for debugging purposes
     border: 2px solid red;
     background-color: #999;
+    */
     overflow: hidden;
     padding: 0;
     margin: 0;
