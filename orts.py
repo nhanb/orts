@@ -4,6 +4,8 @@ from functools import partial
 from tkinter import Tk, N, S, E, W, StringVar
 from tkinter import ttk
 
+from utils.ui import SmashggTab, AutocompleteCombobox
+
 STATE_FILE_PATH = "./web/state.json"
 COUNTRIES_FILE_PATH = "./data/countries.txt"
 
@@ -12,6 +14,7 @@ def build_ui(
     *,
     root,
     countries,
+    smashgg_tab,
     p1_wins,
     p2_wins,
     apply_state,
@@ -30,12 +33,18 @@ def build_ui(
     style.configure("Active.TCombobox", fieldbackground="#dffcde")
     style.configure("Active.TSpinbox", fieldbackground="#dffcde")
 
-    # Main frames:
-    rootframe = ttk.Frame(root, padding=5)
-    rootframe.grid(column=0, row=0)
-    misc = ttk.Frame(rootframe, padding=(0, 0, 0, 7))
-    players = ttk.Frame(rootframe, padding=(0, 0, 0, 0))
-    actions = ttk.Frame(rootframe, padding=(0, 7, 0, 0))
+    # 2 tabs in main Notebook
+    notebook = ttk.Notebook(root)
+    notebook.grid(column=0, row=0, sticky=(N, S, E, W))
+    frame1 = ttk.Frame(notebook, padding=5)
+    frame2 = smashgg_tab.init_frame(notebook)
+    notebook.add(frame1, text="Main")
+    notebook.add(frame2, text="Smash.gg")
+
+    # Main tab has these frames:
+    misc = ttk.Frame(frame1, padding=(0, 0, 0, 7))
+    players = ttk.Frame(frame1, padding=(0, 0, 0, 0))
+    actions = ttk.Frame(frame1, padding=(0, 7, 0, 0))
     misc.grid(column=0, row=0, sticky=(N, S, E, W))
     players.grid(column=0, row=1, sticky=(N, S, E, W))
     actions.grid(column=0, row=2, sticky=(N, S, E, W))
@@ -51,10 +60,10 @@ def build_ui(
     # Players:
     name1lbl = ttk.Label(players, text="Player 1")
     name2lbl = ttk.Label(players, text="Player 2")
-    name1 = ttk.Entry(players, width="30")
-    trace_widget(name1, "p1name", "TEntry")
-    name2 = ttk.Entry(players, width="30")
-    trace_widget(name2, "p2name", "TEntry")
+    name1 = AutocompleteCombobox(players, width="30")
+    trace_widget(name1, "p1name", "TCombobox")
+    name2 = AutocompleteCombobox(players, width="30")
+    trace_widget(name2, "p2name", "TCombobox")
     country1 = ttk.Combobox(players, width="6", values=countries)
     trace_widget(country1, "p1country", "TCombobox")
     country2 = ttk.Combobox(players, width="6", values=countries)
@@ -78,6 +87,15 @@ def build_ui(
     score2.grid(column=3, row=1, padx=2)
     win2.grid(column=4, row=1, padx=(2, 0))
 
+    def update_player_names(players_countries):
+        names = sorted(players_countries.keys(), key=lambda s: s.casefold())
+        name1.set_possible_values(names)
+        name2.set_possible_values(names)
+
+    smashgg_tab.callbacks.append(update_player_names)
+    # Update once on init too
+    update_player_names(smashgg_tab.players_countries)
+
     # Actions:
     apply = ttk.Button(actions, text="▶ Apply", command=apply_state)
     discard = ttk.Button(actions, text="✖ Discard", command=discard_unapplied_state)
@@ -94,7 +112,7 @@ def build_ui(
 def load_countries():
     with open(COUNTRIES_FILE_PATH, "r") as countries_file:
         countries = countries_file.read().split()
-    return countries
+        return countries
 
 
 def init_states():
@@ -128,7 +146,10 @@ def init_states():
 
 def player_wins(state, player):
     score_field = f"p{player}score"
-    score = int(state[score_field].get())
+    try:
+        score = int(state[score_field].get())
+    except ValueError:
+        score = 0
     state[score_field].set(score + 1)
 
 
@@ -186,10 +207,26 @@ if __name__ == "__main__":
     # Need to init Tk before creating any StringVar instance
     root = Tk()
     state, applied_state = init_states()
+
     countries = load_countries()
+
+    smashgg_tab = SmashggTab()
+
+    # TOREFACTOR
+    def sync_func(name_field, country_field, *args):
+        name = state[name_field].get()
+        country = smashgg_tab.players_countries.get(name)
+        if country is not None:
+            state[country_field].set(country)
+
+    state["p1name"].trace("w", partial(sync_func, "p1name", "p1country"))
+    state["p2name"].trace("w", partial(sync_func, "p2name", "p2country"))
+    # END TOREFACTOR
+
     build_ui(
         root=root,
         countries=countries,
+        smashgg_tab=smashgg_tab,
         p1_wins=partial(player_wins, state, 1),
         p2_wins=partial(player_wins, state, 2),
         apply_state=partial(apply_state, state, applied_state),

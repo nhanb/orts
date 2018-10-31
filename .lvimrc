@@ -1,4 +1,5 @@
 augroup LOCAL_SETUP
     set textwidth=88
-    autocmd BufWritePre *.py silent execute ':Black'
+    set colorcolumn=+1
+    autocmd BufWritePre *.py silent execute ':Autoformat'
 augroup End

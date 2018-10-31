@@ -14,7 +14,7 @@ install:
   - poetry install -v
 
 script:
-  - python -m pytest
+  - make test
   - black --check .
 
 after_success:

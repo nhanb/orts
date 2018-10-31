@@ -10,6 +10,8 @@ authors = ["Nhan <nhan@nerdyweekly.com>"]
 
 [tool.poetry.dependencies]
 python = "~3.7"
+requests = "^2.20"
+pycountry = "^18.5"
 
 [tool.poetry.dev-dependencies]
 pyinstaller = "^3.4"

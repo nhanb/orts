@@ -9,4 +9,10 @@ assets:
 	cp -r web dist/
 
 clean:
-	rm -r dist/* orts.spec
+	rm -rf dist/* build/* orts.spec
+
+test:
+	python -m pytest
+
+run:
+	python orts.py
