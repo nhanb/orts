@@ -1,6 +1,24 @@
 # Overly Repetitive Tedious Software
 
-ORTS is a [StreamControl][1] ripoff.
+![screenshot-1][img1]
+
+![screenshot-1][img2]
+
+![screenshot-2][img3]
+
+ORTS is a [StreamControl][1] ripoff with an opionated set of quality-of-life features:
+
+- **Visible diff & easy undo**: Changes not yet applied to stream are highlighted and
+  can be discarded with the Discard button (duh).
+
+- **Player name + country import**: Currently supports smash.gg. data is saved as a csv
+  file which can then be updated manually using any (decent) spreadsheet editor.
+
+- **Better player name lookup**: Matches names _containing_ your query rather than
+  _starting with_.
+
+- **Cross-platform**: Tested on Windows & Linux. Should work on OS X too but I don't use
+  it so you're on your own.
 
 # Downloads
 
@@ -27,3 +45,7 @@ Build for Linux: see Makefile
 [1]: http://farpnut.net/streamcontrol/
 [2]: https://ci.appveyor.com/project/nhanb/orts/build/artifacts
 [3]: https://github.com/sdispater/poetry
+
+[img1]: https://user-images.githubusercontent.com/1446315/48240507-93c60e00-e405-11e8-905a-67d33d8c5e43.png
+[img2]: https://user-images.githubusercontent.com/1446315/48239575-f7e6d300-e401-11e8-9553-1e1f67a50d23.png
+[img3]: https://user-images.githubusercontent.com/1446315/48239574-f7e6d300-e401-11e8-9dce-f41154285aef.png
