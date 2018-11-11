@@ -1,5 +1,6 @@
 /web/state.json
 /data/players.csv
+/orts-linux64.zip
 
 # Poetry build artifacts
 /build/

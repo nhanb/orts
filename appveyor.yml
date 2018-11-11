@@ -5,6 +5,9 @@ environment:
 
 install:
   - '%PYTHON%\python.exe -m pip install --upgrade pip'
+  # For some reason if I let poetry install pyinstaller then pywin32 won't be installed
+  # correctly. Trying `pip install pywin32 pywin32-ctypes` doesn't help either.
+  # Therefore manual pip install for now.
   - '%PYTHON%\python.exe -m pip install pyinstaller requests pycountry'
 
 build: off
@@ -21,7 +24,15 @@ artifacts:
   - path: dist
     name: orts-win64
 
-#on_success:
-#  You can use this step to upload your artifacts to a public website.
-#  See Appveyor's documentation for more details. Or you can simply
-#  access your artifacts from the Appveyor "artifacts" tab for your build.
+deploy:
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  release: $(APPVEYOR_REPO_TAG_NAME)
+  description: ''
+  provider: GitHub
+  auth_token:
+    secure: G9x5d8uuXHQ2H0XLXtX4avPDhhwX7//MI6cM9QCTwE9VuuAWDjiKXz3uPgaMV5sG # encrypted
+  draft: false
+  prerelease: false
+  force_update: true # in case travis released linux build first
+  on:
+    APPVEYOR_REPO_TAG: true # deploy on tag push only
