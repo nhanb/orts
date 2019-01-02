@@ -22,11 +22,7 @@ ORTS is a [StreamControl][1] ripoff with an opionated set of quality-of-life fea
 
 # Downloads
 
-- Windows: Get the latest build [from AppVeyor][2].
-- Linux: Can already be built on travis but I haven't uploaded the results yet.
-
-I'll properly config appveyor/travis to push built artifacts to GitHub Release sometime
-later. Soon. Ish.
+Stable builds for Windows & Linux (both 64-bit) can be found in [Releases][4].
 
 # How to use
 
@@ -39,12 +35,10 @@ later. Soon. Ish.
 Requires python 3.7 because we need the added-in-3.7 `ttk.Spinbox` widget.
 I also use [poetry][3], so instead of pip, just run `poetry install` to install dependencies.
 
-Build for Windows: see appveyor config  
-Build for Linux: see Makefile
-
 [1]: http://farpnut.net/streamcontrol/
 [2]: https://ci.appveyor.com/project/nhanb/orts/build/artifacts
 [3]: https://github.com/sdispater/poetry
+[4]: https://github.com/nhanb/orts/releases
 
 [img1]: https://user-images.githubusercontent.com/1446315/48240507-93c60e00-e405-11e8-905a-67d33d8c5e43.png
 [img2]: https://user-images.githubusercontent.com/1446315/48239575-f7e6d300-e401-11e8-9553-1e1f67a50d23.png
