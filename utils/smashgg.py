@@ -1,4 +1,5 @@
 import logging
+
 import requests
 
 BASE_TOURNAMENT_URL = "https://api.smash.gg/tournament"

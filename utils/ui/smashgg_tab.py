@@ -1,14 +1,13 @@
+import csv
+import logging
 import os
 import traceback
-import logging
-import csv
-from tkinter import ttk, N, W, E, S, StringVar
+from tkinter import E, N, S, StringVar, W, ttk
 from tkinter.scrolledtext import ScrolledText
 
+from utils.countries import country_name_to_code
 from utils.logger import WidgetLogger
 from utils.smashgg import get_players
-from utils.countries import country_name_to_code
-
 
 PLAYERS_FILE_PATH = "./data/players.csv"
 

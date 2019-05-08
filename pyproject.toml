@@ -18,3 +18,6 @@ pyinstaller = "^3.4"
 pytest = "^3.0"
 flake8 = "^3.5"
 ipdb = "^0.11.0"
+python-language-server = "^0.26.1"
+isort = "^4.3"
+black = {version = "^18.3-alpha.0",allows-prereleases = true}

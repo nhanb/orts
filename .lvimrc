@@ -1,5 +1,3 @@
 augroup LOCAL_SETUP
-    set textwidth=88
-    set colorcolumn=+1
-    autocmd BufWritePre *.py silent execute ':Autoformat'
+    let g:ale_fix_on_save = 1
 augroup end

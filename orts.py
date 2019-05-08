@@ -1,10 +1,9 @@
-import os
 import json
+import os
 from functools import partial
-from tkinter import Tk, N, S, E, W, StringVar
-from tkinter import ttk
+from tkinter import E, N, S, StringVar, Tk, W, ttk
 
-from utils.ui import SmashggTab, AutocompleteCombobox
+from utils.ui import AutocompleteCombobox, SmashggTab
 
 STATE_FILE_PATH = "./web/state.json"
 COUNTRIES_FILE_PATH = "./data/countries.txt"

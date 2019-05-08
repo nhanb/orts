@@ -1,6 +1,7 @@
 import logging
 import tkinter as tk
 
+
 """
 Thanks StackOverflow!
 https://stackoverflow.com/questions/13318742/python-logging-to-tkinter-text-widget
