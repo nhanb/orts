@@ -215,7 +215,7 @@ if __name__ == "__main__":
     def sync_func(name_field, country_field, *args):
         name = state[name_field].get()
         country = smashgg_tab.players_countries.get(name)
-        if country is not None:
+        if country:
             state[country_field].set(country)
 
     state["p1name"].trace("w", partial(sync_func, "p1name", "p1country"))
