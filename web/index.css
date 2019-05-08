@@ -7,10 +7,8 @@ body {
     width: 1920px;
     height: 1080px;
     box-sizing: border-box;
-    /* for debugging purposes
     border: 2px solid red;
     background-color: #999;
-    */
     overflow: hidden;
     padding: 0;
     margin: 0;
@@ -22,7 +20,7 @@ body {
     position: relative;
 }
 
-#p1score, #p2score, #p1name, #p2name, #p1country, #p2country, #description {
+#p1score, #p2score, #p1name, #p2name, #p1country, #p2country, #p1team, #p2team, #description {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -71,6 +69,16 @@ body {
 }
 
 #p2name {
+    right: 390px;
+}
+
+#p1team {
+    top: 100px;
+    left: 390px;
+}
+
+#p2team {
+    top: 100px;
     right: 390px;
 }
 

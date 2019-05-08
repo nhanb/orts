@@ -1,7 +1,7 @@
 import json
 import os
 from functools import partial
-from tkinter import E, N, S, StringVar, Tk, W, ttk
+from tkinter import HORIZONTAL, E, N, S, StringVar, Tk, W, ttk
 
 from utils.ui import AutocompleteCombobox, SmashggTab
 
@@ -57,34 +57,62 @@ def build_ui(
     misc.grid_columnconfigure(1, weight=1)
 
     # Players:
+
+    ## Declare widgets, bind values:
+
     name1lbl = ttk.Label(players, text="Player 1")
-    name2lbl = ttk.Label(players, text="Player 2")
     name1 = AutocompleteCombobox(players, width="30")
     trace_widget(name1, "p1name", "TCombobox")
-    name2 = AutocompleteCombobox(players, width="30")
-    trace_widget(name2, "p2name", "TCombobox")
+
     country1 = ttk.Combobox(players, width="6", values=countries)
     trace_widget(country1, "p1country", "TCombobox")
-    country2 = ttk.Combobox(players, width="6", values=countries)
-    trace_widget(country2, "p2country", "TCombobox")
+
     score1 = ttk.Spinbox(players, from_=0, to=777, width="4")
     trace_widget(score1, "p1score", "TSpinbox")
+
+    team1lbl = ttk.Label(players, text="Team 1")
+    team1 = AutocompleteCombobox(players)
+    trace_widget(team1, "p1team", "TCombobox")
+
+    win1 = ttk.Button(players, text="▲ Win", width="6", command=p1_wins)
+
+    name2lbl = ttk.Label(players, text="Player 2")
+    name2 = AutocompleteCombobox(players, width="30")
+    trace_widget(name2, "p2name", "TCombobox")
+
+    country2 = ttk.Combobox(players, width="6", values=countries)
+    trace_widget(country2, "p2country", "TCombobox")
+
     score2 = ttk.Spinbox(players, from_=0, to=777, width="4")
     trace_widget(score2, "p2score", "TSpinbox")
-    win1 = ttk.Button(players, text="▲ Win", width="6", command=p1_wins)
+
+    team2lbl = ttk.Label(players, text="Team 2")
+    team2 = AutocompleteCombobox(players)
+    trace_widget(team2, "p2team", "TCombobox")
+
     win2 = ttk.Button(players, text="▲ Win", width="6", command=p2_wins)
+
+    ## Layout via grid:
 
     name1lbl.grid(column=0, row=0, padx=(0, 2))
     name1.grid(column=1, row=0, padx=2)
     country1.grid(column=2, row=0, padx=2)
     score1.grid(column=3, row=0, padx=2)
-    win1.grid(column=4, row=0, padx=(2, 0), pady=(0, 3))
+    win1.grid(column=4, row=0, padx=(2, 0), rowspan=2, sticky=(N, S))
+    team1lbl.grid(column=0, row=1, padx=(0, 2))
+    team1.grid(column=1, row=1, padx=2, columnspan=3, sticky=(E, W))
 
-    name2lbl.grid(column=0, row=1, padx=(0, 2))
-    name2.grid(column=1, row=1, padx=2)
-    country2.grid(column=2, row=1, padx=2)
-    score2.grid(column=3, row=1, padx=2)
-    win2.grid(column=4, row=1, padx=(2, 0))
+    ttk.Separator(players, orient=HORIZONTAL).grid(
+        column=0, row=2, columnspan=5, sticky="ew", pady=10
+    )
+
+    name2lbl.grid(column=0, row=3, padx=(0, 2))
+    name2.grid(column=1, row=3, padx=2)
+    country2.grid(column=2, row=3, padx=2)
+    score2.grid(column=3, row=3, padx=2)
+    win2.grid(column=4, row=3, padx=(2, 0), rowspan=2, sticky=(N, S))
+    team2lbl.grid(column=0, row=4, padx=(0, 2))
+    team2.grid(column=1, row=4, padx=2, columnspan=3, sticky=(E, W))
 
     def update_player_names(players_countries):
         names = sorted(players_countries.keys(), key=lambda s: s.casefold())
@@ -119,10 +147,12 @@ def init_states():
         "description": StringVar(),
         "p1name": StringVar(),
         "p1country": StringVar(),
+        "p1team": StringVar(),
         "p1score": StringVar(),
         "p2name": StringVar(),
         "p2country": StringVar(),
         "p2score": StringVar(),
+        "p2team": StringVar(),
     }
 
     # Attempt to read existing state from file if available
@@ -179,12 +209,15 @@ def swap_players(state):
     score1, score2 = state["p1score"].get(), state["p2score"].get()
     name1, name2 = state["p1name"].get(), state["p2name"].get()
     country1, country2 = state["p1country"].get(), state["p2country"].get()
+    team1, team2 = state["p1team"].get(), state["p2team"].get()
     state["p1score"].set(score2)
     state["p2score"].set(score1)
     state["p1name"].set(name2)
     state["p2name"].set(name1)
     state["p1country"].set(country2)
     state["p2country"].set(country1)
+    state["p1team"].set(team2)
+    state["p2team"].set(team1)
 
 
 def trace_widget(state, applied_state, widget, field_name, style_name="TEntry"):
