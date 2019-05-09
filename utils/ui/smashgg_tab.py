@@ -16,8 +16,8 @@ class SmashggTab:
     def __init__(self):
         self.callbacks = []
         self.tournament_id_var = StringVar()
-        self.tournament_id_var.set("saigon-cup-2018")
-        self.players_countries = _load_players_from_file()
+        self.tournament_id_var.set("saigon-cup-2019")
+        self.players_dict = _load_players_from_file()
         self.frame = None
 
     def init_frame(self, parent):
@@ -56,21 +56,21 @@ class SmashggTab:
             return
 
         try:
-            players_country_names = get_players(tournament_id)
+            players_data = get_players(tournament_id)
         except Exception:
             logging.error(traceback.format_exc())
             return
 
-        players_countries = {
-            player: country_name_to_code(country_name)
-            for player, country_name in players_country_names.items()
+        players_dict = {
+            player: (country_name_to_code(country_name), team)
+            for player, (country_name, team) in players_data.items()
         }
-        self.players_countries = players_countries
+        self.players_dict = players_dict
 
         for cb in self.callbacks:
-            cb(players_countries)
+            cb(players_dict)
 
-        _save_players_to_file(players_countries)
+        _save_players_to_file(players_dict)
 
 
 def _load_players_from_file():
@@ -78,8 +78,8 @@ def _load_players_from_file():
         return {}
 
     with open(PLAYERS_FILE_PATH, "r") as pfile:
-        reader = csv.DictReader(pfile, fieldnames=["name", "country"])
-        players = {row["name"]: row["country"] for row in reader}
+        reader = csv.DictReader(pfile, fieldnames=["name", "country", "team"])
+        players = {row["name"]: (row["country"], row["team"]) for row in reader}
 
     logging.info(f"Loaded {len(players)} players from file {PLAYERS_FILE_PATH}")
     return players
@@ -87,8 +87,8 @@ def _load_players_from_file():
 
 def _save_players_to_file(players):
     with open(PLAYERS_FILE_PATH, "w") as pfile:
-        writer = csv.DictWriter(pfile, fieldnames=["name", "country"])
+        writer = csv.DictWriter(pfile, fieldnames=["name", "country", "team"])
         writer.writeheader()
-        for name, country in players.items():
-            writer.writerow({"name": name, "country": country})
+        for name, (country, team) in players.items():
+            writer.writerow({"name": name, "country": country, "team": team})
     logging.info(f"Saved {len(players)} players to file {PLAYERS_FILE_PATH}")

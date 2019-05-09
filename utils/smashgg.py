@@ -36,15 +36,20 @@ def get_players(tournament_id):
         for entrant in entrants:
             player_ids = tuple(val for val in entrant["playerIds"].values())
 
-            if len(player_ids) > 1:
-                dict_key = player_ids  # team entrant
-            else:
-                dict_key = player_ids[0]  # single player entrant
+            if len(player_ids) > 1:  # team entrant
+                dict_key = player_ids
+                for player_id in player_ids:
+                    merged_players_data[player_id] = {
+                        **(merged_players_data.get(player_id) or {}),
+                        "team": entrant["name"],
+                    }
 
-            merged_players_data[dict_key] = {
-                **(merged_players_data.get(dict_key) or {}),
-                "name": entrant["name"],
-            }
+            else:  # single player entrant
+                dict_key = player_ids[0]
+                merged_players_data[dict_key] = {
+                    **(merged_players_data.get(dict_key) or {}),
+                    "name": entrant["name"],
+                }
 
         # Read countries from "players" array.
         for player in players:
@@ -59,9 +64,12 @@ def get_players(tournament_id):
                 "country": player["country"],
             }
 
-    # Remove player ID, transform into just a {name: country} dict
+    # Remove player ID, transform into just a {name: (country, team)} dict
     player_dicts = merged_players_data.values()
-    result = {dict_["name"]: dict_.get("country") for dict_ in player_dicts}
+    result = {
+        dict_["name"]: (dict_.get("country"), dict_.get("team"))
+        for dict_ in player_dicts
+    }
 
     logging.info(f"Found {len(result)} players.")
 

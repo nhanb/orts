@@ -114,14 +114,19 @@ def build_ui(
     team2lbl.grid(column=0, row=4, padx=(0, 2))
     team2.grid(column=1, row=4, padx=2, columnspan=3, sticky=(E, W))
 
-    def update_player_names(players_countries):
-        names = sorted(players_countries.keys(), key=lambda s: s.casefold())
+    def update_player_names(players_dict):
+        names = sorted(players_dict.keys(), key=lambda s: s.casefold())
         name1.set_possible_values(names)
         name2.set_possible_values(names)
 
+        # set comprehension to ensure no repeated team values
+        teams = sorted({team for country, team in players_dict.values() if team})
+        team1.set_possible_values(teams)
+        team2.set_possible_values(teams)
+
     smashgg_tab.callbacks.append(update_player_names)
     # Update once on init too
-    update_player_names(smashgg_tab.players_countries)
+    update_player_names(smashgg_tab.players_dict)
 
     # Actions:
     apply = ttk.Button(actions, text="▶ Apply", command=apply_state)
@@ -247,8 +252,9 @@ if __name__ == "__main__":
     # TOREFACTOR
     def sync_func(name_field, country_field, *args):
         name = state[name_field].get()
-        country = smashgg_tab.players_countries.get(name)
-        if country:
+        player_data = smashgg_tab.players_dict.get(name)
+        if player_data:
+            country, _ = player_data
             state[country_field].set(country)
 
     state["p1name"].trace("w", partial(sync_func, "p1name", "p1country"))
