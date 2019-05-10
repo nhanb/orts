@@ -253,9 +253,8 @@ if __name__ == "__main__":
     def sync_func(name_field, country_field, *args):
         name = state[name_field].get()
         player_data = smashgg_tab.players_dict.get(name)
-        if player_data:
-            country, _ = player_data
-            state[country_field].set(country)
+        if player_data and player_data[0]:
+            state[country_field].set(player_data[0])
 
     state["p1name"].trace("w", partial(sync_func, "p1name", "p1country"))
     state["p2name"].trace("w", partial(sync_func, "p2name", "p2country"))
