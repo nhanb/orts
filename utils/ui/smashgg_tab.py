@@ -77,7 +77,7 @@ def _load_players_from_file():
     if not os.path.isfile(PLAYERS_FILE_PATH):
         return {}
 
-    with open(PLAYERS_FILE_PATH, "r") as pfile:
+    with open(PLAYERS_FILE_PATH, "r", newline="") as pfile:
         reader = csv.DictReader(pfile, fieldnames=["name", "country", "team"])
         players = {row["name"]: (row["country"], row["team"]) for row in reader}
 
@@ -86,7 +86,7 @@ def _load_players_from_file():
 
 
 def _save_players_to_file(players):
-    with open(PLAYERS_FILE_PATH, "w") as pfile:
+    with open(PLAYERS_FILE_PATH, "w", newline="") as pfile:
         writer = csv.DictWriter(pfile, fieldnames=["name", "country", "team"])
         writer.writeheader()
         for name, (country, team) in players.items():
