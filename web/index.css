@@ -1,7 +1,43 @@
+/*
+Fonts lifted from https://google-webfonts-helper.herokuapp.com.
+I'm using woff instead of woff2 simply because OBS's Browser Source
+plugin apparently came with a pretty old Chromium.
+*/
 @font-face {
-  font-family: "Oswald";
-  src: url("./assets/fonts/Oswald-DemiBold.ttf") format("truetype");
-}
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Oswald Regular'), local('Oswald-Regular'),
+         url('assets/fonts/oswald-v17-vietnamese_cyrillic_latin_latin-ext-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+
+  /* oswald-500 - vietnamese_cyrillic_latin_latin-ext */
+  @font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Oswald Medium'), local('Oswald-Medium'),
+         url('assets/fonts/oswald-v17-vietnamese_cyrillic_latin_latin-ext-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+
+  /* oswald-600 - vietnamese_cyrillic_latin_latin-ext */
+  @font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Oswald SemiBold'), local('Oswald-SemiBold'),
+         url('assets/fonts/oswald-v17-vietnamese_cyrillic_latin_latin-ext-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+
+  /* oswald-700 - vietnamese_cyrillic_latin_latin-ext */
+  @font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Oswald Bold'), local('Oswald-Bold'),
+         url('assets/fonts/oswald-v17-vietnamese_cyrillic_latin_latin-ext-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+
 
 body {
     width: 1920px;
@@ -12,6 +48,7 @@ body {
     padding: 0;
     margin: 0;
     position: relative;
+    font-weight: 600;
 }
 
 #scoreboard {
@@ -29,6 +66,7 @@ body {
 }
 
 #p1team, #p2team {
+    font-size: 32px;
     font-family: "Oswald", sans-serif;
     text-shadow: 0px 0px 20px black;
 }
