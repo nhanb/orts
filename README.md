@@ -40,6 +40,6 @@ I also use [poetry][3], so instead of pip, just run `poetry install` to install 
 [3]: https://github.com/sdispater/poetry
 [4]: https://github.com/nhanb/orts/releases
 
-[img1]: https://user-images.githubusercontent.com/1446315/48240507-93c60e00-e405-11e8-905a-67d33d8c5e43.png
-[img2]: https://user-images.githubusercontent.com/1446315/48239575-f7e6d300-e401-11e8-9553-1e1f67a50d23.png
-[img3]: https://user-images.githubusercontent.com/1446315/48239574-f7e6d300-e401-11e8-9dce-f41154285aef.png
+[img1]: https://user-images.githubusercontent.com/1446315/57603111-0f5a7080-758b-11e9-9223-001336e6cd62.png
+[img2]: https://user-images.githubusercontent.com/1446315/57602797-52681400-758a-11e9-84a5-14452b4e6581.png
+[img3]: https://user-images.githubusercontent.com/1446315/57602761-3c5a5380-758a-11e9-9300-91795a5187e1.png
