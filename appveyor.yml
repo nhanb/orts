@@ -16,7 +16,7 @@ build: off
   #- 'ECHO 1'
 
 after_test:
-  - '%PYTHON%\Scripts\pyinstaller --onefile --noconsole orts.py'
+  - '%PYTHON%\Scripts\pyinstaller --noconsole orts.py'
   - 'Xcopy /S /I /E data dist\data'
   - 'Xcopy /S /I /E web dist\web'
 
