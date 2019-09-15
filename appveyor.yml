@@ -17,11 +17,11 @@ build: off
 
 after_test:
   - '%PYTHON%\Scripts\pyinstaller --noconsole orts.py'
-  - 'Xcopy /S /I /E data dist\data'
-  - 'Xcopy /S /I /E web dist\web'
+  - 'Xcopy /S /I /E data dist\orts\data'
+  - 'Xcopy /S /I /E web dist\orts\web'
 
 artifacts:
-  - path: dist
+  - path: dist\orts
     name: orts-win64
 
 deploy:
