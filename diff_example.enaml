@@ -1,0 +1,17 @@
+from enaml.widgets.api import Window, Container, Field
+from enaml.styling import StyleSheet, Style, Setter
+
+enamldef Main(Window):
+    StyleSheet:
+        Style:
+            element = 'Field'
+            style_class = 'dirty'
+            Setter:
+                field = 'background-color'
+                value = 'lightgreen'
+    Container:
+        Field:
+            style_class << '' if self.text == 'default' else 'dirty'
+            text = 'default'
+            submit_triggers = ['auto_sync']
+            sync_time = 0

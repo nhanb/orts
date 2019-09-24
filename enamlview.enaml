@@ -1,0 +1,97 @@
+from enaml.layout.api import spacer, grid
+from enaml.widgets.api import (
+    Window, Label, Separator, Field, Form, VGroup, CheckBox, SpinBox, PushButton,
+    Container, HGroup
+)
+from enaml.styling import StyleSheet, Style, Setter
+
+
+enamldef PlayerView(Container):
+    attr number
+    attr player
+
+    padding = 5
+
+    constraints = [
+        grid(
+            [playerLabel, name, country, score, win ],
+            [teamLabel,   team, team,    team,  team],
+            column_align='width',
+            row_align='v_center',
+            column_spacing=5,
+            row_spacing=5,
+        ),
+        country.width == 35,
+        score.width == 40,
+    ]
+
+    Label: playerLabel:
+        text = f"Player {number}"
+    Field: name:
+        text := player.name
+
+    Field: country:
+        text := player.country
+
+    SpinBox: score:
+        value := player.score
+
+    Label: teamLabel:
+        text = f"Team {number}"
+    Field: team:
+        text := player.team
+
+    PushButton: win:
+        text = f"P&{number} Wins"
+        tool_tip = f"huge-ass button to increase score by 1"
+        clicked :: player.score += 1
+
+
+def swap_players(p1, p2):
+    fields = p1.members().keys()
+    p1_data = {field: getattr(p1, field) for field in fields}
+    for field in fields:
+        setattr(p1, field, getattr(p2, field))
+        setattr(p2, field, p1_data[field])
+
+
+enamldef Main(Window):
+    title = 'Overly Repetitive Tedious Software'
+    attr p1
+    attr p2
+
+    VGroup:
+        padding = 0
+        spacing = 0
+
+        Form:
+            padding = 5
+            Label:
+                text = 'Match description'
+            Field: match_description:
+                pass
+
+        PlayerView:
+            player := p1
+            number = "1"
+
+        PlayerView:
+            player := p2
+            number = "2"
+
+        HGroup:
+            padding = 5
+
+            PushButton:
+                text = "▶ &Apply"
+
+            PushButton:
+                text = "✖ &Discard"
+
+            PushButton:
+                text = "↶ &Reset scores"
+                clicked :: p1.score = 0; p2.score = 0
+
+            PushButton:
+                text = "⇄ &Swap players"
+                clicked :: swap_players(p1, p2)

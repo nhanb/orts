@@ -2,6 +2,8 @@
 /data/players.csv
 /orts-linux64.zip
 
+/__enamlcache__/
+
 # Poetry build artifacts
 /build/
 
