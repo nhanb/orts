@@ -5,10 +5,8 @@ environment:
 
 install:
   - '%PYTHON%\python.exe -m pip install --upgrade pip'
-  # For some reason if I let poetry install pyinstaller then pywin32 won't be installed
-  # correctly. Trying `pip install pywin32 pywin32-ctypes` doesn't help either.
-  # Therefore manual pip install for now.
-  - '%PYTHON%\python.exe -m pip install pyinstaller requests pycountry'
+  - '%PYTHON%\python.exe -m pip install poetry'
+  - '%PYTHON%\Scripts\poetry.exe install --no-dev'
 
 build: off
 
@@ -16,7 +14,7 @@ build: off
   #- 'ECHO 1'
 
 after_test:
-  - '%PYTHON%\Scripts\pyinstaller --noconsole orts.py'
+  - '%PYTHON%\Scripts\poetry.exe run pyinstaller --noconsole orts.py'
   - 'Xcopy /S /I /E data dist\orts\data'
   - 'Xcopy /S /I /E web dist\orts\web'
 

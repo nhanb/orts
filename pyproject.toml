@@ -12,9 +12,12 @@ authors = ["Nhan <nhan@nerdyweekly.com>"]
 python = "~3.7"
 requests = "^2.20"
 pycountry = "^18.5"
+pefile = {version = "^2019.4", platform = "win32"}
+pypiwin32 = {version = "^223.0", platform = "win32"}
+pywin32-ctypes = {version = "^0.2.0", platform = "win32"}
+pyinstaller = "^3.4"
 
 [tool.poetry.dev-dependencies]
-pyinstaller = "^3.4"
 pytest = "^3.0"
 flake8 = "^3.5"
 ipdb = "^0.11.0"
