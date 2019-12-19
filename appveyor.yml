@@ -14,9 +14,7 @@ build: off
   #- 'ECHO 1'
 
 after_test:
-  - '%PYTHON%\Scripts\poetry.exe run pyinstaller --noconsole main.py'
-  - 'Xcopy /S /I /E data dist\orts\data'
-  - 'Xcopy /S /I /E web dist\orts\web'
+  - '%PYTHON%\Scripts\poetry.exe run pyinstaller --noconsole orts.spec'
 
 artifacts:
   - path: dist\orts

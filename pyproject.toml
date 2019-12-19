@@ -17,6 +17,7 @@ pypiwin32 = {version = "^223.0", platform = "win32"}
 pywin32-ctypes = {version = "^0.2.0", platform = "win32"}
 pyinstaller = "^3.4"
 enaml = "^0.10.4"
+pyqt5 = "^5.13.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
