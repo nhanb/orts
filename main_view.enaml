@@ -1,0 +1,149 @@
+from enaml.layout.api import spacer, grid
+from enaml.validator import IntValidator
+from enaml.widgets.api import (
+    Window, Label, Separator, Field, Form, VGroup, CheckBox, PushButton,
+    Container, HGroup
+)
+from enaml.styling import StyleSheet, Style, Setter
+from utils.gui import load_icon, swap_players
+
+
+
+enamldef PlayerView(Container):
+    attr number
+    attr pname # because `name` clashes with enaml internals
+    attr country
+    attr score
+    attr team
+
+    attr applied_pname
+    attr applied_country
+    attr applied_score
+    attr applied_team
+
+    padding = 5
+
+    constraints = [
+        grid(
+            [playerLabel, nameField, countryField, minusButton, scoreField, plusButton],
+            [teamLabel,   teamField, teamField,    teamField,   teamField,  teamField],
+            column_align='width',
+            row_align='v_center',
+            column_spacing=5,
+            row_spacing=5,
+        ),
+        countryField.width == 35,
+        scoreField.width == 30,
+        plusButton.width == 20,
+        minusButton.width == 20,
+    ]
+
+    Label: playerLabel:
+        text = f"Player {number}"
+    Field: nameField:
+        text := pname
+        style_class << 'dirty' if pname != applied_pname else ''
+        submit_triggers = ['auto_sync']
+        sync_time = 0
+
+    Field: countryField:
+        text := country
+        style_class << 'dirty' if country != applied_country else ''
+        submit_triggers = ['auto_sync']
+        sync_time = 0
+
+    Field: scoreField:
+        text := score
+        style_class << 'dirty' if score != applied_score else ''
+        validator = IntValidator()
+
+    Label: teamLabel:
+        text = f"Team {number}"
+    Field: teamField:
+        text := team
+        style_class << 'dirty' if team != applied_team else ''
+        submit_triggers = ['auto_sync']
+        sync_time = 0
+
+    PushButton: plusButton:
+        text = f"+"
+        clicked :: parent.score = str(int(parent.score) + 1)
+
+    PushButton: minusButton:
+        text = f"-"
+        clicked ::
+            current_score = int(parent.score)
+            if current_score > 0:
+                parent.score = str(current_score - 1)
+
+
+enamldef Main(Window):
+    title = 'Overly Repetitive Tedious Software'
+    icon = load_icon('gui_assets/icon-256.png')
+    attr state
+    attr applied_state
+
+    StyleSheet:
+        Style:
+            element = 'Field'
+            style_class = 'dirty'
+            Setter:
+                field = 'background-color'
+                value = '#c7f0d2'
+
+    VGroup:
+        padding = 0
+        spacing = 0
+
+        Form:
+            padding = 5
+            Label:
+                text = 'Match description'
+            Field:
+                text := state.match_description
+                style_class << 'dirty' if state.match_description != applied_state.match_description else ''
+                submit_triggers = ['auto_sync']
+                sync_time = 0
+
+        PlayerView:
+            number = "1"
+            pname := state.p1name
+            country := state.p1country
+            score := state.p1score
+            team := state.p1team
+            applied_pname := applied_state.p1name
+            applied_country := applied_state.p1country
+            applied_score := applied_state.p1score
+            applied_team := applied_state.p1team
+
+        PlayerView:
+            number = "2"
+            pname := state.p2name
+            country := state.p2country
+            score := state.p2score
+            team := state.p2team
+            applied_pname := applied_state.p2name
+            applied_country := applied_state.p2country
+            applied_score := applied_state.p2score
+            applied_team := applied_state.p2team
+
+        HGroup:
+            padding = 5
+
+            PushButton:
+                text = "▶ &Apply"
+                clicked ::
+                    state.clone_to(applied_state)
+                    state.persist()
+
+            PushButton:
+                text = "✖ &Discard"
+                clicked :: applied_state.clone_to(state)
+
+            PushButton:
+                text = "↶ &Reset scores"
+                clicked :: state.p1score = "0"; state.p2score = "0"
+
+            PushButton:
+                text = "⇄ &Swap players"
+                clicked :: swap_players(state)
