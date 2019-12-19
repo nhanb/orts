@@ -4,6 +4,7 @@ from enaml.widgets.api import (
     Container, HGroup
 )
 from enaml.styling import StyleSheet, Style, Setter
+from utils.gui import load_icon
 
 
 enamldef PlayerView(Container):
@@ -47,18 +48,10 @@ enamldef PlayerView(Container):
         clicked :: player.score += 1
 
 
-def swap_players(p1, p2):
-    fields = p1.members().keys()
-    p1_data = {field: getattr(p1, field) for field in fields}
-    for field in fields:
-        setattr(p1, field, getattr(p2, field))
-        setattr(p2, field, p1_data[field])
-
-
 enamldef Main(Window):
     title = 'Overly Repetitive Tedious Software'
-    attr p1
-    attr p2
+    icon = load_icon('gui_assets/icon-256.png')
+    attr state
 
     VGroup:
         padding = 0
@@ -68,15 +61,15 @@ enamldef Main(Window):
             padding = 5
             Label:
                 text = 'Match description'
-            Field: match_description:
-                pass
+            Field:
+                text := state.match_description
 
         PlayerView:
-            player := p1
+            player := state.player1
             number = "1"
 
         PlayerView:
-            player := p2
+            player := state.player2
             number = "2"
 
         HGroup:
@@ -90,8 +83,8 @@ enamldef Main(Window):
 
             PushButton:
                 text = "↶ &Reset scores"
-                clicked :: p1.score = 0; p2.score = 0
+                clicked :: state.player1.score = 0; state.player2.score = 0
 
             PushButton:
                 text = "⇄ &Swap players"
-                clicked :: swap_players(p1, p2)
+                clicked :: state.player1, state.player2 = state.player2, state.player1
