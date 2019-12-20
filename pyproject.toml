@@ -12,17 +12,12 @@ authors = ["Nhan <nhan@nerdyweekly.com>"]
 python = "~3.7"
 requests = "^2.20"
 pycountry = "^18.5"
+enaml = "^0.10.4"
+pyqt5 = "^5.13.2"
 pefile = {version = "^2019.4", platform = "win32"}
 pypiwin32 = {version = "^223.0", platform = "win32"}
 pywin32-ctypes = {version = "^0.2.0", platform = "win32"}
-pyinstaller = "^3.4"
-enaml = "^0.10.4"
-pyqt5 = "^5.13.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
-flake8 = "^3.5"
 ipdb = "^0.11.0"
-python-language-server = "^0.26.1"
-isort = "^4.3"
-black = {version = "^18.3-alpha.0",allows-prereleases = true}

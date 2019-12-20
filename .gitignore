@@ -1,8 +1,12 @@
 /web/state.json
 /data/players.csv
 /orts-linux64.zip
+*.pyz
 
 /__enamlcache__/
+
+# should only generate this using `poetry export` as part of build step
+/requirements.txt
 
 # Poetry build artifacts
 /build/
