@@ -22,5 +22,8 @@ pytest = "^3.0"
 flake8 = "^3.5"
 ipdb = "^0.11.0"
 python-language-server = "^0.26.1"
+# jedi 0.17 breaks pyls so let's pin it to 0.16 until this gets merged:
+# https://github.com/palantir/python-language-server/pull/781
+jedi = "~0.16"
 isort = "^4.3"
-black = {version = "^18.3-alpha.0",allow-prereleases = true}
+black = "^19.10b0"
