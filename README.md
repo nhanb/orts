@@ -27,8 +27,11 @@ Stable builds for Windows & Linux (both 64-bit) can be found in [Releases][4].
 # How to use
 
 - Run the **orts** executable
-- Open OBS => Add browser source => Point to **web/index.html**
-- Browser size must be 1920x1080
+- Install python 3, open either `cmd` or `powershell`, navigate to the **web** folder,
+  run `python3 -m http.server --bind 127.0.0.1`. Yes this is unnecessarily fiddly and I
+  [plan to eliminate this step][6] in the future.
+- Open OBS => Add browser source => Point to **http://127.0.0.1:8000**
+- Browser size must be 1920x1080.
 - If you want to manually tweak player names after importing from smash.gg, edit
   **data/players.csv** with any text editor (notepad++) or spreadsheet editor (excel or
   [libreoffice calc][5] ~~if you're poor like me~~)
@@ -45,6 +48,7 @@ I also use [poetry][3], so instead of pip, just run `poetry install` to install 
 [3]: https://github.com/sdispater/poetry
 [4]: https://github.com/nhanb/orts/releases
 [5]: https://www.libreoffice.org/discover/calc/
+[6]: https://github.com/nhanb/orts/issues/2
 
 [img1]: https://user-images.githubusercontent.com/1446315/57603111-0f5a7080-758b-11e9-9223-001336e6cd62.png
 [img2]: https://user-images.githubusercontent.com/1446315/57602797-52681400-758a-11e9-84a5-14452b4e6581.png
