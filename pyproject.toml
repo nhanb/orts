@@ -9,7 +9,7 @@ description = "Simple HTML-based stream overlay"
 authors = ["Nhan <nhan@nerdyweekly.com>"]
 
 [tool.poetry.dependencies]
-python = "~3.7"
+python = "^3.7"
 requests = "^2.20"
 pycountry = "^18.5"
 pefile = {version = "^2019.4", platform = "win32"}

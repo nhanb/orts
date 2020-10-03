@@ -57,8 +57,15 @@ const applyNewState = (newState) => {
 };
 
 
+const fetchHeaders = new Headers();
+fetchHeaders.append('pragma', 'no-cache');
+fetchHeaders.append('cache-control', 'no-cache');
+const fetchInit = {
+  method: 'GET',
+  headers: fetchHeaders,
+}
 const pollState = () => {
-  fetch('state.json')
+  fetch('state.json', fetchInit)
     .then((response) => response.json())
     .then(applyNewState);
 };
