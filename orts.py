@@ -2,6 +2,8 @@ import json
 import os
 from functools import partial
 from tkinter import HORIZONTAL, E, N, S, StringVar, Tk, W, ttk
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+from threading import Thread
 
 from utils.ui import AutocompleteCombobox, SmashggTab
 
@@ -240,8 +242,18 @@ def trace_widget(state, applied_state, widget, field_name, style_name="TEntry"):
     state[field_name].trace("w", on_change_callback)
 
 
-if __name__ == "__main__":
+def run_server(host="127.0.0.1", port=1337):
+    print(f"Serving scoreboard at http://{host}:{port}")
+    server_address = (host, port)
+    httpd = HTTPServer(
+        server_address, partial(SimpleHTTPRequestHandler, directory="web")
+    )
+    httpd.serve_forever()
+
+
+def run_gui():
     # Need to init Tk before creating any StringVar instance
+    print("Running ORTS GUI")
     root = Tk()
     state, applied_state = init_states()
 
@@ -272,3 +284,9 @@ if __name__ == "__main__":
         swap_players=partial(swap_players, state),
         trace_widget=partial(trace_widget, state, applied_state),
     )
+
+
+if __name__ == "__main__":
+    server_thread = Thread(target=run_server, daemon=True)
+    server_thread.start()
+    run_gui()

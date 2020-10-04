@@ -17,3 +17,6 @@ __pycache__/
 
 # KDE Dolphin
 .directory
+
+# Windows
+.vscode/

@@ -26,11 +26,8 @@ Stable builds for Windows & Linux (both 64-bit) can be found in [Releases][4].
 
 # How to use
 
-- Run the **orts** executable
-- Install python 3, open either `cmd` or `powershell`, navigate to the **web** folder,
-  run `python3 -m http.server --bind 127.0.0.1`. Yes this is unnecessarily fiddly and I
-  [plan to eliminate this step][6] in the future.
-- Open OBS => Add browser source => Point to **http://127.0.0.1:8000**
+- Run the **orts** executable.
+- Open OBS => Add browser source => Point to **http://localhost:1337**
 - Browser size must be 1920x1080.
 - If you want to manually tweak player names after importing from smash.gg, edit
   **data/players.csv** with any text editor (notepad++) or spreadsheet editor (excel or
@@ -40,7 +37,7 @@ Stable builds for Windows & Linux (both 64-bit) can be found in [Releases][4].
 
 # How to develop
 
-Requires python 3.7 because we need the added-in-3.7 `ttk.Spinbox` widget.
+Requires python >= 3.7 because we need the added-in-3.7 `ttk.Spinbox` widget.
 I also use [poetry][3], so instead of pip, just run `poetry install` to install dependencies.
 
 [1]: http://farpnut.net/streamcontrol/
