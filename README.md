@@ -22,7 +22,12 @@ ORTS is a [StreamControl][1] ripoff with an opinionated set of quality-of-life f
 
 # Downloads
 
-Stable builds for Windows & Linux (both 64-bit) can be found in [Releases][4].
+Stable builds for 64-bit Windows can be found in [Releases][4].
+
+I used to provide Linux builds but glibc/fontconfig versioning shenanigans put me off.
+Also I only run streams on Windows so it's just not worth the effort anymore.
+It definitely runs on Linux though, since that's where I primarily develop ORTS on.
+Simply pull the code & run `poetry install --no-dev`, then `python orts.py`.
 
 # How to use
 
