@@ -1,9 +1,9 @@
 import json
 import os
 from functools import partial
-from tkinter import HORIZONTAL, E, N, S, StringVar, Tk, W, ttk
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from threading import Thread
+from tkinter import HORIZONTAL, E, N, S, StringVar, Tk, W, ttk
 
 from utils.ui import AutocompleteCombobox, SmashggTab
 
