@@ -4,23 +4,19 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "orts"
-version = "0.1.0"
+version = "0.4.0"
 description = "Simple HTML-based stream overlay"
-authors = ["Nhan <nhan@nerdyweekly.com>"]
+authors = ["Nhan <hi@imnhan.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-requests = "^2.20"
-pycountry = "^18.5"
-pefile = {version = "^2019.4", platform = "win32"}
-pypiwin32 = {version = "^223.0", platform = "win32"}
-pywin32-ctypes = {version = "^0.2.0", platform = "win32"}
-pyinstaller = "^3.4"
+python = "^3.11"
+requests = "*"
+pycountry = "*"
+pefile = {version = "*", platform = "win32"}
+pypiwin32 = {version = "*", platform = "win32"}
+pywin32-ctypes = {version = "*", platform = "win32"}
+pyinstaller = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
-flake8 = "*"
 ipdb = "*"
-python-language-server = "*"
-isort = "*"
-black = "^19.10b0"
