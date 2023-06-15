@@ -1,0 +1,53 @@
+name: ORTS builds
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+
+  create-release:
+    name: Create Release
+    runs-on: windows-latest
+    steps:
+      - name: Create Release
+        id: create-release
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Build
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          python -m venv .venv
+          .venv/Scripts/activate
+          poetry install
+          pyinstaller --noconsole orts.py
+          Xcopy /S /I /E data dist\orts\data
+          Xcopy /S /I /E web dist\orts\web
+          Compress-Archive -Path dist/* -Destination ORTS-Windows.zip
+
+      - name: Release
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          tag_name: ${{ needs.create-release.outputs.tag-name }}
+          files: |
+            ORTS-Windows.zip
