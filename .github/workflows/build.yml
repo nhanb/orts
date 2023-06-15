@@ -31,7 +31,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: 3.9
 
       - name: Build
         run: |
@@ -43,7 +43,7 @@ jobs:
           pyinstaller --noconsole orts.py
           Xcopy /S /I /E data dist\orts\data
           Xcopy /S /I /E web dist\orts\web
-          Compress-Archive -Path dist/* -Destination ORTS-Windows.zip
+          Compress-Archive -Path dist\* -Destination ORTS-Windows.zip
 
       - name: Release
         uses: softprops/action-gh-release@v0.1.15

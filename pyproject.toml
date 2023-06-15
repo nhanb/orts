@@ -9,7 +9,13 @@ description = "Simple HTML-based stream overlay"
 authors = ["Nhan <hi@imnhan.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+# PyInstaller doesn't support 3.11:
+# https://github.com/pyinstaller/pyinstaller/issues/6950
+# PyInstaller doesn't support 3.10 either:
+# https://github.com/pyinstaller/pyinstaller/issues/5693
+# Maybe one day I'll be arsed to to explore Nuitka/PyOxidizer/Briefcase/whateverflavorofthepyconmonth... but not today.
+# I'm starting to doubt the Pythong.
+python = "^3.9"
 requests = "*"
 pycountry = "*"
 pefile = {version = "*", platform = "win32"}
