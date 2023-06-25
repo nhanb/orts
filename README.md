@@ -1,3 +1,9 @@
+# Deprecated
+
+ORTS is no longer maintained. Check out its successor
+[GORTS](https://sr.ht/~nhanb/gorts/), which is lighter weight and sports a new
+design which is compatible with newer fighting games.
+
 # Overly Repetitive Tedious Software
 
 ![screenshot-1][img1]
